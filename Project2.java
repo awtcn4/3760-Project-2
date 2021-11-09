@@ -269,12 +269,14 @@ public class Project2 {
 		String password = "";
 		int file;
 		int count = 0;
+		int cracked = 0;
 		int accounts;
 		System.out.print("Which file are we using(2 or 3): ");
 		file = scan.nextInt();
 
 		
 		if (file == 2) {
+			long startTime1 = System.currentTimeMillis();
 			File fileName = new File("src/Resources/PasswordFile2");
 			Scanner fileScanner = new Scanner(fileName);
 			while (fileScanner.hasNextLine()) {
@@ -290,15 +292,22 @@ public class Project2 {
 					int pass = j;
 					password += pass;
 					if (authenticateFile2(crackUserName, password) == true) {
+						cracked++;
 						System.out.println("User " + crackUserName + " cracked with password " + password);
-						System.out.println(i);
 						j = 0;
 						password = "";
 						crackUserName += "t";
+						if(cracked == accounts) {
+							long endTime1 = System.currentTimeMillis();
+							long time1 = endTime1 - startTime1;
+							System.out.println("Time to crack " + accounts + " is " + time1/1000 + " seconds");
+							startTask1();
+						}
 					}
 				}
 			}
 		} else if (file == 3) {
+			long startTime2 = System.currentTimeMillis();
 			File fileName = new File("src/Resources/PasswordFile2");
 			Scanner fileScanner = new Scanner(fileName);
 			while (fileScanner.hasNextLine()) {
@@ -313,10 +322,17 @@ public class Project2 {
 					int pass = j;
 					password += pass;
 					if (authenticateFile3(crackUserName, password) == true) {
+						cracked++;
 						System.out.println("User " + crackUserName + " cracked with password " + password);
 						j = 0;
 						password = "";
 						crackUserName += "t";
+						if(cracked == accounts) {
+							long endTime2 = System.currentTimeMillis();
+							long time2 = endTime2 - startTime2;
+							System.out.println("Time to crack " + accounts + " is " + time2/1000 + "seconds");
+							startTask1();
+						}
 					}
 				}
 			}
